@@ -37,14 +37,19 @@ public class MyListTableController {
         return ResponseEntity.ok(myListTableService.editTable(id, table.getName(), table.getInfo()));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/tables/{id}")
     private ResponseEntity<?> delete_table(@PathVariable Long id){
         myListTableService.deleteTable(id);
         return ResponseEntity.ok("Deleted");
     }
 
-    @PostMapping("/users/{id}")
+    @PostMapping("/users/{id}/table")
     private ResponseEntity<?> create_table(@PathVariable Long id, @RequestBody MyListTableResponse table){
         return ResponseEntity.ok(myListTableService.createTable(id, table.getName(), table.getInfo()));
+    }
+
+    @GetMapping("/users/{id}/table")
+    private ResponseEntity<?> get_user_table(@PathVariable Long id){
+        return ResponseEntity.ok(myListTableService.getTablesByUserId(id));
     }
 }

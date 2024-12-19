@@ -22,7 +22,7 @@ public class MyListTable {
     @JoinColumn(name="user_id", nullable=false)
     private MyUser user;
 
-    @Column(unique = true)
+    @Column(nullable=false)
     private String name;
     private String info;
 

@@ -45,10 +45,6 @@ public class MyListTableServiceImpl implements MyListTableService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Name cannot be empty");
         }
 
-        if(myListTableRepository.existsByName(name)){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Name already exists");
-        }
-
         MyListTable myListTable = new MyListTable();
         myListTable.setName(name);
         myListTable.setInfo(info);
@@ -79,12 +75,6 @@ public class MyListTableServiceImpl implements MyListTableService {
         }
 
         MyListTable myListTable = myListTableRepository.getReferenceById(id);
-
-        if(myListTableRepository.existsByName(name)){
-            if(myListTableRepository.findByName(name) != myListTable){
-                throw new ResponseStatusException(HttpStatus.CONFLICT, "Name already exists");
-            }
-        }
 
         myListTable.setName(name);
         myListTable.setInfo(info);
