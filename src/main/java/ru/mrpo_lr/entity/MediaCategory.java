@@ -21,7 +21,8 @@ public class MediaCategory {
     private Long id;
 
     private String name;
+    private String info;
 
-    @OneToMany(mappedBy = "categoryId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Media> media = new ArrayList<>();
 }

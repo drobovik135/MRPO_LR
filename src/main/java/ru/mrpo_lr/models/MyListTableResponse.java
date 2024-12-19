@@ -1,16 +1,14 @@
 package ru.mrpo_lr.models;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter
-@Getter
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Accessors(chain = true)
 public class MyListTableResponse {
     private Long id;

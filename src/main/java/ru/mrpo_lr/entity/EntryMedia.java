@@ -18,7 +18,10 @@ public class EntryMedia {
     private Long id;
     private Long tableId;
 
-    private Long mediaId;
+    @ManyToOne
+    @JoinColumn(name = "entries", nullable = false)
+    private Media media;
+
     private Integer mediaRate;
     private String mediaReview;
 

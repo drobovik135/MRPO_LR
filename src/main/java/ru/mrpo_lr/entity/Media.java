@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 @Entity
@@ -17,10 +19,14 @@ public class Media {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long categoryId;
-
     private String name;
     private String type;
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "mediaCategory_id", nullable = false)
+    private MediaCategory category;
+
+    @OneToMany(mappedBy = "media", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EntryMedia> entries;
 }
