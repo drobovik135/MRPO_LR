@@ -9,6 +9,6 @@ public interface MediaCategoryService {
     MediaCategoryResponse getMediaCategory(Long id);
     MediaCategoryResponse addMediaCategory(MediaCategoryResponse mediaCategory);
     MediaCategoryResponse updateMediaCategory(Long id, MediaCategoryResponse mediaCategory);
-    MediaCategoryResponse deleteMediaCategory(Long id);
+    void deleteMediaCategory(Long id);
 
 }

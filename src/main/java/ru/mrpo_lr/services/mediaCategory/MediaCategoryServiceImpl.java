@@ -37,6 +37,10 @@ public class MediaCategoryServiceImpl implements MediaCategoryService {
 
     @Override
     public MediaCategoryResponse getMediaCategory(Long id) {
+        if(!mediaCategoryRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
         return buildResponse(mediaCategoryRepository.getReferenceById(id));
     }
 
@@ -67,7 +71,7 @@ public class MediaCategoryServiceImpl implements MediaCategoryService {
         }
 
         if(!mediaCategoryRepository.existsById(id)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Media category not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Media category with id %s not found", id));
         }
 
         MediaCategory mediaCategory = mediaCategoryRepository.getReferenceById(id);
@@ -87,7 +91,11 @@ public class MediaCategoryServiceImpl implements MediaCategoryService {
 
 
     @Override
-    public MediaCategoryResponse deleteMediaCategory(Long id) {
-        return null;
+    public void deleteMediaCategory(Long id) {
+        if(!mediaCategoryRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Media category with id %s not found", id));
+        }
+
+        mediaCategoryRepository.deleteById(id);
     }
 }

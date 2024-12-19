@@ -21,7 +21,7 @@ public class MyListTableController {
 
 
     @GetMapping("/tables")
-    private ResponseEntity<List<MyListTableResponse>> get_tables(){
+    private ResponseEntity<?> get_tables(){
         return ResponseEntity.ok(myListTableService.getAllTables());
     }
 
