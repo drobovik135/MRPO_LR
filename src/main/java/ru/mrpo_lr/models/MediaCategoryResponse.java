@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -12,7 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class MediaCategoryResponse {
+    private Long id;
     private String name;
     private String info;
-    private List<Long> mediaIds;
+    private List<Long> mediaIds = new ArrayList<>();
 }

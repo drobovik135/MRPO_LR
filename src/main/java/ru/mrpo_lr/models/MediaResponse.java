@@ -4,15 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import ru.mrpo_lr.entity.MediaCategory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
 public class MediaResponse {
+    private Long id;
     private String name;
-    private String type;
-    private String description;
+    private String info;
     private Long categoryId;
+    private List<Long> entriesId = new ArrayList<>();
 }

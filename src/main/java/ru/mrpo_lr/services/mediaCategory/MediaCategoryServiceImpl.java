@@ -20,7 +20,8 @@ public class MediaCategoryServiceImpl implements MediaCategoryService {
         return new MediaCategoryResponse()
                 .setName(mediaCategory.getName())
                 .setInfo(mediaCategory.getInfo())
-                .setMediaIds(mediaCategory.getMedia().stream().map(Media::getId).collect(Collectors.toList()));
+                .setId(mediaCategory.getId())
+                .setMediaIds(mediaCategory.getMedias().stream().map(Media::getId).collect(Collectors.toList()));
     }
 
     @Autowired
@@ -38,7 +39,7 @@ public class MediaCategoryServiceImpl implements MediaCategoryService {
     @Override
     public MediaCategoryResponse getMediaCategory(Long id) {
         if(!mediaCategoryRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Media category with id %s not found", id));
         }
 
         return buildResponse(mediaCategoryRepository.getReferenceById(id));

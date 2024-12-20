@@ -65,7 +65,7 @@ public class MyUserServiceIml implements MyUserService {
     @Override
     public MyUserResponse updateUser(Long id, String name, String info) {
         if(!myUserRepository.existsById(id)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("User with name %s not found", name));
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("User with id %s not found", id));
         }
 
         MyUser user = myUserRepository.getReferenceById(id);

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -21,13 +22,12 @@ public class Media {
 
     @Column(nullable = false, unique = true)
     private String name;
-    private String type;
-    private String description;
+    private String info;
 
     @ManyToOne
     @JoinColumn(name = "mediaCategory_id", nullable = false)
     private MediaCategory category;
 
     @OneToMany(mappedBy = "media", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EntryMedia> entries;
+    private List<EntryMedia> entries = new ArrayList<>();
 }
