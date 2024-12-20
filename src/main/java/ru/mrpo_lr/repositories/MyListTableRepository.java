@@ -6,6 +6,4 @@ import ru.mrpo_lr.entity.MyListTable;
 
 @Repository
 public interface MyListTableRepository extends JpaRepository<MyListTable, Long> {
-    Boolean existsByName(String name);
-    MyListTable findByName(String name);
 }

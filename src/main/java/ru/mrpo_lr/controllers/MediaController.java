@@ -35,13 +35,13 @@ public class MediaController {
     }
 
     @DeleteMapping("/medias/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable Long id) {
+    public ResponseEntity<?> deleteMedia(@PathVariable Long id) {
         mediaService.deleteMedia(id);
         return ResponseEntity.ok("Deleted");
     }
 
     @PostMapping("/categories/{id}/media")
-    public ResponseEntity<?> addCategory(@PathVariable Long id, @RequestBody MediaResponse mediaResponse) {
+    public ResponseEntity<?> addMedia(@PathVariable Long id, @RequestBody MediaResponse mediaResponse) {
         return ResponseEntity.ok(mediaService.addMedia(id, mediaResponse));
     }
 
