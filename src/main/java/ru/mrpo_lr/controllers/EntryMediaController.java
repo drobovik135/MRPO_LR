@@ -50,5 +50,9 @@ public class EntryMediaController {
         return ResponseEntity.ok(entryMediaService.getAllEntryMediaByMediaId(mediaId));
     }
 
+    @GetMapping("/tables/{tableId}/entries/full")
+    public ResponseEntity<?> getFullMediasByTable(@PathVariable Long tableId) {
+        return ResponseEntity.ok(entryMediaService.getFullEntryMediaByTable(tableId));
+    }
 
 }

@@ -8,10 +8,12 @@ import ru.mrpo_lr.entity.EntryMedia;
 import ru.mrpo_lr.entity.Media;
 import ru.mrpo_lr.entity.MyListTable;
 import ru.mrpo_lr.models.EntryMediaResponse;
+import ru.mrpo_lr.models.FullEntryMediaResponse;
 import ru.mrpo_lr.repositories.EntryMediaRepository;
 import ru.mrpo_lr.repositories.MediaRepository;
 import ru.mrpo_lr.repositories.MyListTableRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -121,5 +123,31 @@ public class EntryMediaServiceImpl implements EntryMediaService {
         Media media = mediaRepository.getReferenceById(mediaId);
 
         return media.getEntries().stream().map(this::buildResponse).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<FullEntryMediaResponse> getFullEntryMediaByTable(Long tableId) {
+        if(!myListTableRepository.existsById(tableId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("MyListTable with id %s not found", tableId));
+        }
+
+        MyListTable myListTable = myListTableRepository.getReferenceById(tableId);
+        List<EntryMedia> entryMedias = myListTable.getMedias();
+
+        List<FullEntryMediaResponse> ret = new ArrayList<>();
+        for(EntryMedia entryMedia : entryMedias){
+            Media media = entryMedia.getMedia();
+
+            FullEntryMediaResponse fullEntryMediaResponse = new FullEntryMediaResponse();
+            fullEntryMediaResponse.setId(entryMedia.getId());
+            fullEntryMediaResponse.setMediaRate(entryMedia.getMediaRate());
+            fullEntryMediaResponse.setMediaReview(entryMedia.getMediaReview());
+            fullEntryMediaResponse.setName(media.getName());
+            fullEntryMediaResponse.setInfo(media.getInfo());
+
+            ret.add(fullEntryMediaResponse);
+        }
+
+        return ret;
     }
 }

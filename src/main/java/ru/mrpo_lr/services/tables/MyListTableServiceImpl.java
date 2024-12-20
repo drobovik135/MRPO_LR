@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ru.mrpo_lr.entity.MyListTable;
 import ru.mrpo_lr.entity.MyUser;
+import ru.mrpo_lr.models.FullTableResponse;
 import ru.mrpo_lr.models.MyListTableResponse;
 import ru.mrpo_lr.repositories.MyListTableRepository;
 import ru.mrpo_lr.repositories.MyUserRepository;
@@ -90,6 +91,15 @@ public class MyListTableServiceImpl implements MyListTableService {
         }
 
         return buildResponse(myListTableRepository.getReferenceById(id));
+    }
+
+    @Override
+    public FullTableResponse getFullTable(Long id) {
+        if(!myListTableRepository.existsById(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Table with id %s not found", id));
+        }
+
+        return null;
     }
 
 
