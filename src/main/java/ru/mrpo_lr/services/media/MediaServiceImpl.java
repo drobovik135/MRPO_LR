@@ -10,6 +10,8 @@ import ru.mrpo_lr.entity.MediaCategory;
 import ru.mrpo_lr.models.MediaResponse;
 import ru.mrpo_lr.repositories.MediaCategoryRepository;
 import ru.mrpo_lr.repositories.MediaRepository;
+import ru.mrpo_lr.repositories.MyUserRepository;
+import ru.mrpo_lr.services.mediaCategory.MediaCategoryService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
 public class MediaServiceImpl implements MediaService {
     private final MediaRepository mediaRepository;
     private final MediaCategoryRepository mediaCategoryRepository;
+    private final MediaCategoryService mediaCategoryService;
+    private final MyUserRepository myUserRepository;
 
     private MediaResponse buildResponse(Media media) {
         return new MediaResponse()
@@ -29,9 +33,14 @@ public class MediaServiceImpl implements MediaService {
     }
 
     @Autowired
-    public MediaServiceImpl(MediaRepository mediaRepository, MediaCategoryRepository mediaCategoryRepository) {
+    public MediaServiceImpl(MediaRepository mediaRepository,
+                            MediaCategoryRepository mediaCategoryRepository,
+                            MediaCategoryService mediaCategoryService,
+                            MyUserRepository myUserRepository) {
         this.mediaRepository = mediaRepository;
         this.mediaCategoryRepository = mediaCategoryRepository;
+        this.mediaCategoryService = mediaCategoryService;
+        this.myUserRepository = myUserRepository;
     }
 
 
@@ -104,6 +113,19 @@ public class MediaServiceImpl implements MediaService {
         MediaCategory mediaCategory = mediaCategoryRepository.getReferenceById(categoryId);
 
         return mediaCategory.getMedias().stream().map(this::buildResponse).collect(Collectors.toList());
+    }
+
+    @Override
+    public void fillDatabase() {
+        myUserRepository.deleteAll();
+        mediaRepository.deleteAll();
+        mediaCategoryService.fillDatabase();
+        Long id = mediaCategoryService.getMediaCategories().get(0).getId();
+
+        addMedia(id, new MediaResponse().setName("Door2").setInfo("superFilm"));
+        addMedia(id, new MediaResponse().setName("Openheimer").setInfo("Nolan"));
+        addMedia(id, new MediaResponse().setName("Barbie").setInfo("not a Nolan"));
+        addMedia(id, new MediaResponse().setName("Drive").setInfo("Rayan Gosling"));
     }
 
     @Override

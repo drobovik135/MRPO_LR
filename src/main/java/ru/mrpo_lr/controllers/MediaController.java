@@ -49,4 +49,10 @@ public class MediaController {
     public ResponseEntity<?> getMediaByCategory(@PathVariable Long id) {
         return ResponseEntity.ok(mediaService.mediasByCategory(id));
     }
+
+    @GetMapping("/fiilmediadb")
+    public ResponseEntity<?> getMediaByFiletype() {
+        mediaService.fillDatabase();
+        return ResponseEntity.ok("");
+    }
 }

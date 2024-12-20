@@ -11,5 +11,6 @@ public interface MediaService {
     MediaResponse addMedia(Long categoryId, MediaResponse media);
     MediaResponse updateMedia(Long id, MediaResponse media);
     List<MediaResponse> mediasByCategory(Long categoryId);
+    void fillDatabase();
     void deleteMedia(Long id);
 }

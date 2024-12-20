@@ -90,6 +90,19 @@ public class MediaCategoryServiceImpl implements MediaCategoryService {
         return buildResponse(mediaCategory);
     }
 
+    @Override
+    public void fillDatabase() {
+        mediaCategoryRepository.deleteAll();
+
+        addMediaCategory(new MediaCategoryResponse()
+                .setName("Films")
+                .setInfo("Cinema"));
+
+        addMediaCategory(new MediaCategoryResponse()
+                .setName("Books")
+                .setInfo("Reading"));
+    }
+
 
     @Override
     public void deleteMediaCategory(Long id) {
