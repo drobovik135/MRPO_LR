@@ -77,8 +77,22 @@ public class MediaServiceImpl implements MediaService {
     }
 
     @Override
-    public MediaResponse updateMedia(Long id, MediaResponse media) {
-        return null;
+    public MediaResponse updateMedia(Long id, MediaResponse mediaResponse) {
+        if(!mediaRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Media with id %s not found", id));
+        }
+
+        Media media = mediaRepository.getReferenceById(id);
+        media.setInfo(mediaResponse.getInfo());
+        media.setName(mediaResponse.getName());
+
+        if(mediaResponse.getCategoryId() != null && mediaCategoryRepository.existsById(mediaResponse.getCategoryId())) {
+            media.setCategory(mediaCategoryRepository.getReferenceById(mediaResponse.getCategoryId()));
+        }
+
+        mediaRepository.save(media);
+
+        return buildResponse(media);
     }
 
     @Override

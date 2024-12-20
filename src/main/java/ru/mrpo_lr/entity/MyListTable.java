@@ -26,6 +26,6 @@ public class MyListTable {
     private String name;
     private String info;
 
-    @OneToMany(mappedBy = "tableId", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EntryMedia> media = new ArrayList<>();
+    @OneToMany(mappedBy = "table", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EntryMedia> medias = new ArrayList<>();
 }

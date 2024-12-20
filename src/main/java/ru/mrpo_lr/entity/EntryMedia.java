@@ -16,13 +16,16 @@ public class EntryMedia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long tableId;
-
-    @ManyToOne
-    @JoinColumn(name = "entries", nullable = false)
-    private Media media;
 
     private Integer mediaRate;
     private String mediaReview;
+
+    @ManyToOne
+    @JoinColumn(name = "entries_id", nullable = false)
+    private Media media;
+
+    @ManyToOne
+    @JoinColumn(name = "medias_id", nullable = false)
+    private MyListTable table;
 
 }
